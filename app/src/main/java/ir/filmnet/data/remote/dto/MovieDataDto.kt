@@ -1,5 +1,5 @@
 package ir.filmnet.data.remote.dto
 
-data class VideoDataDto(
+data class MovieDataDto(
     val data: VideoListDto? = null
 )

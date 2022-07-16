@@ -50,12 +50,4 @@ object NetworkModule {
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
-
-    @Provides
-    @Singleton
-    fun provideSearchMoviesApi(
-        retrofit: Retrofit
-    ): SearchMoviesApi {
-        return retrofit.create(SearchMoviesApi::class.java)
-    }
 }
