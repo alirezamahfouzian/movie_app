@@ -13,7 +13,7 @@ class SearchMoviesUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(query: String): Flow<ApiResponse<List<Movie?>>> =
-        genericFlowResponse(repository.searchMovies(query)) { moviesDto ->
-            moviesDto?.data?.videos?.map { it?.toMovie() }
+        genericFlowResponse(repository.searchMovies(query)) { moviesDataDto ->
+            moviesDataDto?.data?.videos?.map { it?.toMovie() }
         }
 }
