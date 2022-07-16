@@ -1,8 +1,9 @@
 package ir.filmnet.domain.repository
 
-import ir.filmnet.domain.model.Movie
+import ir.filmnet.common.network.ApiResponse
+import ir.filmnet.data.remote.dto.VideoDataDto
 
 interface SearchRepository {
 
-    fun searchMovies(query: String): List<Movie>
+    suspend fun searchMovies(query: String): ApiResponse<VideoDataDto>
 }
