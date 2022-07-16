@@ -31,6 +31,7 @@ class SearchMovieFragment : Fragment() {
     ): View {
         _binding = FragmentSearchMovieBinding.inflate(inflater, container, false)
         binding.viewModel = searchMovieViewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 

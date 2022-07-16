@@ -1,5 +1,7 @@
 package ir.filmnet.presentation.search
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +26,9 @@ class SearchMovieViewModel @Inject constructor(
     private val _searchQueryResult = MutableStateFlow<List<Movie?>?>(emptyList())
     val searchQueryResult: StateFlow<List<Movie?>?> = _searchQueryResult
 
+    private val _isLoading = MutableLiveData(true)
+    val isLoading: LiveData<Boolean> = _isLoading
+
     val searchQueryText = MutableStateFlow("")
 
     init {
@@ -41,8 +46,18 @@ class SearchMovieViewModel @Inject constructor(
         searchJob?.cancel()
         searchJob = viewModelScope.launch(IO) {
             searchMoviesUseCase(query).collect {
-                if (it is ApiResponse.Success)
-                    _searchQueryResult.value = it.data
+                when (it) {
+                    is ApiResponse.Error -> {
+                        _isLoading.postValue(false)
+                    }
+                    is ApiResponse.Loading -> {
+                        _isLoading.postValue(true)
+                    }
+                    is ApiResponse.Success -> {
+                        _searchQueryResult.value = it.data
+                        _isLoading.postValue(false)
+                    }
+                }
             }
         }
     }
