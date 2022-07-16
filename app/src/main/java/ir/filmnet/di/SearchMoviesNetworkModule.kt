@@ -23,7 +23,7 @@ object SearchMoviesNetworkModule {
 
     @Provides
     @Singleton
-    fun provideCoinRepository(api: SearchMoviesApi): SearchRepository {
+    fun provideSearchRepository(api: SearchMoviesApi): SearchRepository {
         return SearchRepositoryImpl(api)
     }
 }
