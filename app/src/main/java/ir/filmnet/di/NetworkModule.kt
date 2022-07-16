@@ -5,12 +5,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ir.filmnet.common.constants.ApiConstants.BASE_URL
+import ir.filmnet.common.network.DefaultHeaderInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -19,13 +21,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkhttp(): OkHttpClient {
+    fun provideOkhttp(headerInterceptor: DefaultHeaderInterceptor): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-        return OkHttpClient().newBuilder()
+        val okHttpClient = OkHttpClient().newBuilder()
             .readTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
-            .addInterceptor(interceptor).build()
+            .addInterceptor(interceptor)
+            .addInterceptor(headerInterceptor)
+        return okHttpClient.build()
     }
 
     @Singleton
@@ -46,5 +50,4 @@ object NetworkModule {
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
-
 }

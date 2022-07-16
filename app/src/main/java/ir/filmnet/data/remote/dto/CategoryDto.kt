@@ -1,8 +1,8 @@
-package ir.filmnet.data.remote.entity
+package ir.filmnet.data.remote.dto
 
 import android.content.ClipData
 
-data class CategoryEntity(
+data class CategoryDto(
     val items: List<ClipData.Item?>? = null,
     val type: String? = null
 )
