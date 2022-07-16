@@ -1,4 +1,4 @@
-package com.example.filmnet.data.entity
+package com.example.filmnet.data.remote.entity
 
 import com.example.filmnet.domain.model.Movie
 import com.google.gson.annotations.SerializedName

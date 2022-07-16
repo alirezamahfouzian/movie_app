@@ -1,4 +1,4 @@
-package com.example.filmnet.data.entity
+package com.example.filmnet.data.remote.entity
 
 import android.content.ClipData
 
