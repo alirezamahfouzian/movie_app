@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ir.filmnet.common.constants.ApiConstants.BASE_URL
 import ir.filmnet.common.network.DefaultHeaderInterceptor
+import ir.filmnet.data.remote.api.SearchMoviesApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -48,5 +49,13 @@ object NetworkModule {
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSearchMoviesApi(
+        retrofit: Retrofit
+    ): SearchMoviesApi {
+        return retrofit.create(SearchMoviesApi::class.java)
     }
 }
