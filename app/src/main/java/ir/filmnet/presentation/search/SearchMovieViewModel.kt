@@ -24,7 +24,7 @@ class SearchMovieViewModel @Inject constructor(
     private val _searchQueryResult = MutableStateFlow<List<Movie?>?>(emptyList())
     val searchQueryResult: StateFlow<List<Movie?>?> = _searchQueryResult
 
-    val searchQueryText = MutableStateFlow<String>("")
+    val searchQueryText = MutableStateFlow("")
 
     init {
         getSearchQueryState()
