@@ -1,0 +1,30 @@
+default_platform(:android)
+
+platform :android do
+
+    desc "Build aplication"
+    lane :build do
+      gradle(task: "clean assembleDebug")
+    end
+
+    desc "Perform Unit tests"
+    lane :tests do
+      gradle(task: "test")
+    end
+
+    desc "Perform Instrumented tests"
+    lane :ui_tests do
+      gradle(
+        task: 'clean'
+      )
+      gradle(
+        task: 'assemble',
+        build_type: 'Debug'
+      )
+      gradle(
+        task: 'assemble',
+        build_type: 'AndroidTest'
+      )
+    end
+
+end
